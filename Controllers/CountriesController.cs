@@ -91,7 +91,7 @@ namespace CodeTest.Controllers
         [NonAction]
         public string getCountry(int id)
         {
-            List<int> arr = null;
+            List<int> arr = new List<int>();
             double num = id;
             int mod;
             if (id < 99)
@@ -102,14 +102,14 @@ namespace CodeTest.Controllers
             {
                 mod = (int)(num % 10);
                 arr.Add(mod);
-                num = (num / 10);
                 num = Math.Floor(num / 10);
 
             }
             int arrlength = arr.Count;
-            List<int> trois = arr.GetRange(arrlength - 2, 3);
-            trois.Reverse(0,3);
-            string s = string.Join(",", trois.Select(x => x.ToString()).ToArray());
+
+            List<int> trois = arr.GetRange(arrlength - 3, 3);
+            trois.Reverse(0, 3);
+            string s = string.Join("", trois.Select(x => x.ToString()).ToArray());
             //int sint = Int16.Parse(s);
 
             return s;
