@@ -29,7 +29,7 @@ namespace CodeTest.Controllers
         //}
 
         [HttpGet]
-        public IActionResult CountryJsonById()
+        public string CountryJsonById()
         {
             //string code = getCountry(7);
             //CountryDetails country = _context.Countries.Where(x => x.countryIso == "234").Include(s => s.countryDetails).SingleOrDefault();
@@ -38,7 +38,7 @@ namespace CodeTest.Controllers
             output.number = 23465798;
             output.countries = country;
             string outputstring = JsonConvert.SerializeObject(output);
-            return Ok(outputstring);
+            return outputstring;
         }
 
         //[HttpGet(" {id}")]
@@ -49,6 +49,8 @@ namespace CodeTest.Controllers
         //    return country;
         //}
 
+        //THIS IS THE ASSIGNMENT
+//-----------------------------------------------------------------------------------------------------------
         [HttpGet(" {id}")]
         public string CountryJsonById(int id)
         {
@@ -59,13 +61,15 @@ namespace CodeTest.Controllers
 
             }
             Country country = _context.Countries.Where(x => x.countryIso == code).SingleOrDefault();
+            List<CountryDetails> countryDetails = _context.CountryDetails.Where(x => x.CountryId == country.Id).ToList();
             Output output = new Output();
-            country.countryDetails = new List<CountryDetails>();
-            output.number = 23465798;
+            country.countryDetails = countryDetails;
+            output.number = id;
             //output.Country = country;
             string outputstring = JsonConvert.SerializeObject(output);
             return outputstring;
         }
+//-----------------------------------------------------------------------------------------------------
 
         [HttpPost]
         public Country CountryJsonById(Country cntr)
