@@ -4,14 +4,14 @@ namespace CodeTest.Models
 {
     public class Output
     {
-        private int number { get; }
+        public int number { get; }
         //public List<CountryDetails> countries { get; set; }
 
-        private OutputCountry Country = new OutputCountry();
+        public OutputCountry Country = new OutputCountry();
         public Output(Country ctr, List<CountryDetails> ctd, int id )
         {
             List<OutputCountryDetails> locd = new List<OutputCountryDetails>();
-            number = id;
+            this.number = id;
             foreach (CountryDetails ele in ctd)
             {
                 OutputCountryDetails oele =new OutputCountryDetails();
