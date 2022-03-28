@@ -29,7 +29,7 @@ namespace CodeTest.Controllers
         //}
 
         [HttpGet]
-        public string CountryJsonById()
+        public string CountryJson()
         {
             //string code = getCountry(7);
             //CountryDetails country = _context.Countries.Where(x => x.countryIso == "234").Include(s => s.countryDetails).SingleOrDefault();
@@ -50,8 +50,9 @@ namespace CodeTest.Controllers
         //}
 
         //THIS IS THE ASSIGNMENT
-//-----------------------------------------------------------------------------------------------------------
-        [HttpGet(" {id}")]
+        //-----------------------------------------------------------------------------------------------------------
+        [HttpGet]
+        [Route("{id:int}")]
         public string CountryJsonById(int id)
         {
             string code = getCountry(id);
@@ -91,6 +92,7 @@ namespace CodeTest.Controllers
             List<int> arr = new List<int>();
             double num = id;
             int mod;
+            //To ensure iso is 3 digits or more
             if (id < 99)
             {
                 return "Invalid";
