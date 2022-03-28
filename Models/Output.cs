@@ -7,10 +7,10 @@ namespace CodeTest.Models
         private int number { get; }
         //public List<CountryDetails> countries { get; set; }
 
-        private List<OutputCountryDetails> locd = new List<OutputCountryDetails>();
         private OutputCountry Country = new OutputCountry();
         public Output(Country ctr, List<CountryDetails> ctd, int id )
         {
+            List<OutputCountryDetails> locd = new List<OutputCountryDetails>();
             number = id;
             foreach (CountryDetails ele in ctd)
             {
