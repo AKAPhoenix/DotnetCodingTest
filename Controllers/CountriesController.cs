@@ -33,10 +33,10 @@ namespace CodeTest.Controllers
         {
             //string code = getCountry(7);
             //CountryDetails country = _context.Countries.Where(x => x.countryIso == "234").Include(s => s.countryDetails).SingleOrDefault();
-            List<CountryDetails> country = _context.CountryDetails.Where(x => x.CountryId == 1).ToList();
-            Output output=new Output();
-            output.number = 23465798;
-            output.countries = country;
+            Country country = _context.Countries.Where(x => x.Id == 1).SingleOrDefault();
+            List<CountryDetails> countryDetails = _context.CountryDetails.Where(x => x.CountryId == 1).ToList();
+            
+            Output output=new Output(country,countryDetails, 23465798);
             string outputstring = JsonConvert.SerializeObject(output);
             return outputstring;
         }
@@ -62,10 +62,7 @@ namespace CodeTest.Controllers
             }
             Country country = _context.Countries.Where(x => x.countryIso == code).SingleOrDefault();
             List<CountryDetails> countryDetails = _context.CountryDetails.Where(x => x.CountryId == country.Id).ToList();
-            Output output = new Output();
-            country.countryDetails = countryDetails;
-            output.number = id;
-            //output.Country = country;
+            Output output = new Output(country,countryDetails,id);
             string outputstring = JsonConvert.SerializeObject(output);
             return outputstring;
         }
