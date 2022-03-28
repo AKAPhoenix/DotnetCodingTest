@@ -61,6 +61,7 @@ namespace CodeTest
             var context = scope.ServiceProvider.GetService<AppDbContext>();
             context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
+            //List<Country> countries = context.Countries;
             SeedData(context);
 
 

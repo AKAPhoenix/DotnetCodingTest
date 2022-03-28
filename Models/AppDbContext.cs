@@ -12,34 +12,34 @@ namespace CodeTest.Models
 
         }
         public DbSet<Country> Countries { get; set; }
-
+        public DbSet<CountryDetails> CountryDetails { get; set; }
 
         Dictionary<string, List<List<string>>> countryDetails = new Dictionary<string, List<List<string>>>
         {
             {
                 "Nigeria" , new List<List<string>>{
-                    new List<string>{"1", "MTN Nigeria","MTN NG"},
-                    new List<string>{"2", "Airtel Nigeria","ANG"},
-                    new List<string>{"3", "9 Mobile Nigeria","ETN"},
-                    new List<string>{"4", "Globacom Nigeria","GLO NG"}
+                    new List<string>{"1", "MTN Nigeria","MTN NG","1"},
+                    new List<string>{"2", "Airtel Nigeria","ANG","1"},
+                    new List<string>{"3", "9 Mobile Nigeria","ETN","1"},
+                    new List<string>{"4", "Globacom Nigeria","GLO NG","1"}
                 }
             },
             {
                 "Ghana" , new List<List<string>>{
-                    new List<string>{"5", "Vodafone Ghana","Vodafone GH"},
-                    new List<string>{"6", "MTN Ghana","MTN Ghana"},
-                    new List<string>{"7", "Tigo Ghana","Tigo Ghana"},
+                    new List<string>{"5", "Vodafone Ghana","Vodafone GH","2"},
+                    new List<string>{"6", "MTN Ghana","MTN Ghana","2"},
+                    new List<string>{"7", "Tigo Ghana","Tigo Ghana","2"},
                 }
             },
             {
                 "Benin" , new List<List<string>>{
-                    new List<string>{"8", "MTN Benin","MTN Benin"},
-                    new List<string>{"9", "Moov Benin","Moov Benin"},
+                    new List<string>{"8", "MTN Benin","MTN Benin","3"},
+                    new List<string>{"9", "Moov Benin","Moov Benin","3"},
                 }
             },
             {
                 "CIV" , new List<List<string>>{
-                    new List<string>{"10", "MTN Cote d Ivoire","MTN CIV"}
+                    new List<string>{"10", "MTN Cote d Ivoire","MTN CIV","4"}
                 }
             }
         };
@@ -70,9 +70,9 @@ namespace CodeTest.Models
 
                 foreach(var lst in entry.Value)
                 {
-                    modelBuilder.Entity<Country>()
-                    .OwnsMany(m => m.countryDetails)
-                    .HasData(new { Id = Int32.Parse(lst[0]), operatorCode = lst[2], ooperator = lst[1] });
+                    modelBuilder.Entity<CountryDetails>()
+                    
+                    .HasData(new CountryDetails { Id = Int32.Parse(lst[0]), operatorCode = lst[2], ooperator = lst[1],CountryId= Int32.Parse(lst[3]) });
                 }
                 ind++;
             }

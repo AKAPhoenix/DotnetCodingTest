@@ -8,5 +8,6 @@ namespace CodeTest.Models
         public int Id { get; set; }
         public string ooperator { get; set; }
         public string operatorCode { get; set; }
+        public int CountryId { get; set; }
     }
 }

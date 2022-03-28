@@ -1,6 +1,8 @@
 ﻿using CodeTest.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,20 +20,53 @@ namespace CodeTest.Controllers
             _context = context;
 
         }
+        //[HttpGet]
+        //public Country CountryJsonById()
+        //{
+        //    //string code = getCountry(7);
+        //    Country country = _context.Countries.Where(x => x.countryIso == "234").SingleOrDefault();
+        //    return country;
+        //}
+
         [HttpGet]
-        public Country CountryJsonById()
+        public IActionResult CountryJsonById()
         {
-            string code = getCountry(7);
-            Country country = _context.Countries.Where(x => x.countryCode == code).SingleOrDefault();
-            return country;
+            //string code = getCountry(7);
+            //CountryDetails country = _context.Countries.Where(x => x.countryIso == "234").Include(s => s.countryDetails).SingleOrDefault();
+            List<CountryDetails> country = _context.CountryDetails.Where(x => x.CountryId == 1).ToList();
+            Output output=new Output();
+            output.number = 23465798;
+            output.countries = country;
+            string outputstring = JsonConvert.SerializeObject(output);
+            return Ok(outputstring);
         }
+
+        //[HttpGet(" {id}")]
+        //public Country CountryJsonById(int id)
+        //{
+        //    string code = getCountry(id);
+        //    Country country = _context.Countries.Where(x => x.countryIso == code).SingleOrDefault();
+        //    return country;
+        //}
+
         [HttpGet(" {id}")]
-        public Country CountryJsonById(int id)
+        public string CountryJsonById(int id)
         {
             string code = getCountry(id);
-            Country country = _context.Countries.Where(x => x.countryCode == code).SingleOrDefault();
-            return country;
+            if (code == "Invalid")
+            {
+                return "Number must be 3 digits or more";
+
+            }
+            Country country = _context.Countries.Where(x => x.countryIso == code).SingleOrDefault();
+            Output output = new Output();
+            country.countryDetails = new List<CountryDetails>();
+            output.number = 23465798;
+            //output.Country = country;
+            string outputstring = JsonConvert.SerializeObject(output);
+            return outputstring;
         }
+
         [HttpPost]
         public Country CountryJsonById(Country cntr)
         {
@@ -43,16 +78,22 @@ namespace CodeTest.Controllers
             return Ok();
         }
         
-        public IActionResult Delete(int id, Country cntr)
+        [NonAction]
+        public IActionResult Update(int id, Country cntr)
         {
             return Ok();
         }
 
+        [NonAction]
         public string getCountry(int id)
         {
             List<int> arr = null;
             double num = id;
             int mod;
+            if (id < 99)
+            {
+                return "Invalid";
+            }
             while (num != 0)
             {
                 mod = (int)(num % 10);
@@ -61,7 +102,9 @@ namespace CodeTest.Controllers
                 num = Math.Floor(num / 10);
 
             }
-            List<int> trois = arr.GetRange(0, 3);
+            int arrlength = arr.Count;
+            List<int> trois = arr.GetRange(arrlength - 2, 3);
+            trois.Reverse(0,3);
             string s = string.Join(",", trois.Select(x => x.ToString()).ToArray());
             //int sint = Int16.Parse(s);
 

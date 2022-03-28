@@ -1,8 +1,10 @@
-﻿namespace CodeTest.Models
+﻿using System.Collections.Generic;
+
+namespace CodeTest.Models
 {
     public class Output
     {
-        public string number { get; set; }
-        public Country country { get; set; }
+        public int number { get; set; }
+        public List<CountryDetails> countries { get; set; }
     }
 }
